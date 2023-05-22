@@ -1,0 +1,46 @@
+{
+	"name": "@ukrainian-cloud/platform-web",
+	"description": "Web platform provider for Ukrainian.Cloud client",
+	"repository": "github:ukrainian-cloud/client-platform-web",
+	"private": true,
+	"type": "module",
+	"scripts": {
+		"build": "./build.mjs",
+		"lint:eslint": "eslint **/*.{js,jsx,ts,tsx}",
+		"lint:eslint:fix": "yarn lint:eslint --fix",
+		"lint:prettier": "prettier **/*.{json,yml,yaml,css,scss,sass}",
+		"lint:prettier:fix": "yarn lint:prettier --write",
+		"lint": "concurrently -n eslint,prettier \"yarn lint:eslint${LINT_FIX}\" \"yarn lint:prettier${LINT_FIX}\"",
+		"lint:fix": "LINT_FIX=':fix' yarn lint"
+	},
+	"dependencies": {
+		"@ukrainian-cloud/utils": "ukrainian-cloud/client-utils-shared#v0.0.4",
+		"preact": "^10.13.0"
+	},
+	"devDependencies": {
+		"@prefresh/vite": "^2.3.0",
+		"@types/node": "^20.2.1",
+		"@typescript-eslint/eslint-plugin": "^5.59.1",
+		"@typescript-eslint/parser": "^5.59.1",
+		"concurrently": "^8.0.1",
+		"esbuild-sass-plugin": "^2.9.0",
+		"eslint": "^8.39.0",
+		"eslint-config-prettier": "^8.8.0",
+		"eslint-plugin-prettier": "^4.2.1",
+		"json5": "^2.2.3",
+		"postcss": "^8.4.24",
+		"postcss-modules": "^6.0.0",
+		"prettier": "^2.8.8",
+		"tsup": "^6.7.0",
+		"typescript": "^5.0.4",
+		"vite-plugin-html-config": "^1.0.11",
+		"zx": "^7.2.2"
+	},
+	"installConfig": {
+		"pnp": true
+	},
+	"packageManager": "yarn@3.5.0",
+	"resolutions": {
+		"@babel/core@^7.9.6": "patch:@babel/core@npm%3A7.22.1#./.yarn/patches/@babel-core-npm-7.22.1-4ec1915241.patch"
+	}
+}

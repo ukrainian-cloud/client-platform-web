@@ -1,0 +1,17 @@
+diff --git a/lib/config/files/module-types.js b/lib/config/files/module-types.js
+index 60dda9b7072c1af6f55229e356472a4d7bddc1b8..b7fcd557593dd7eaca74fc9a6ddfaf6cdb8433c7 100644
+--- a/lib/config/files/module-types.js
++++ b/lib/config/files/module-types.js
+@@ -87,12 +87,6 @@ function loadCtsDefault(filepath) {
+             filename
+           })).code, filename);
+         } catch (error) {
+-          if (!hasTsSupport) {
+-            const packageJson = require("@babel/preset-typescript/package.json");
+-            if (_semver().lt(packageJson.version, "7.21.4")) {
+-              console.error("`.cts` configuration file failed to load, please try to update `@babel/preset-typescript`.");
+-            }
+-          }
+           throw error;
+         }
+       }

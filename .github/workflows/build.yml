@@ -1,0 +1,53 @@
+name: Build the package
+
+on:
+  release:
+    types:
+      - published
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the repo
+        uses: actions/checkout@v3
+        with:
+          path: src
+          submodules: recursive
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Install dependencies
+        run: |
+          cd "$GITHUB_WORKSPACE/src"
+          yarn install --immutable
+
+      - name: Build the package
+        run: |
+          cd "$GITHUB_WORKSPACE/src"
+          yarn build ${{ github.event.release.tag_name }}
+
+      - name: Prepare dist repo
+        run: |
+          cd "$GITHUB_WORKSPACE"
+          cp -rp src dist1
+          cd dist1
+          git checkout --orphan dist
+          mv dist ../dist
+          mv .git ../dist/.git
+          cd ..
+          rm -rf dist1
+
+      - name: Recreate & push Git tag
+        run: |
+          cd "$GITHUB_WORKSPACE/dist"
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add .
+          git commit -m "Release ${{ github.event.release.tag_name }}"
+          git tag -d ${{ github.event.release.tag_name }}
+          git tag ${{ github.event.release.tag_name }}
+          git push -f --tags

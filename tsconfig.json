@@ -1,0 +1,10 @@
+{
+	"extends": "./config/tsconfig.json",
+	"compilerOptions": {
+		"allowJs": true,
+		"lib": ["DOM", "DOM.Iterable", "ESNext"],
+		"jsx": "react-jsx",
+		"jsxImportSource": "preact",
+	},
+	"include": ["src"],
+}
